@@ -1,4 +1,5 @@
 class Movie < ActiveRecord::Base
+  has_many :reviews
   before_save :capitalize_title
   def capitalize_title
     self.title = self.title.split(/\s+/).map(&:downcase).map(&:capitalize).join ' '
@@ -17,6 +18,9 @@ class Movie < ActiveRecord::Base
   def grandfathered?
     release_date && release_date < @@grandfathered_date
   end
+  
+  scope :with_good_reviews, ->(threshold) { joins(:reviews).group(:movie_id).having(['AVG(reviews.potatoes) > ? ', threshold.to_i]) }
+  scope :for_kids, -> { where('rating in (?)', %w(G PG)) }
 end
 
 # class Movie < ActiveRecord::Base
