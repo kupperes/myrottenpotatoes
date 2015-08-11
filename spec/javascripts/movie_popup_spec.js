@@ -17,6 +17,7 @@ describe('MoviePopup', function(){
     describe('when successful server call', function() {
       beforeEach(function(){
         var htmlResponse = readFixtures('movie_info.html');
+        console.log('htmlResponse: '+JSON.stringify(htmlResponse));
         spyOn($,'ajax').and.callFake(function(ajaxArgs){
           ajaxArgs.success(htmlResponse, '200');
         });
