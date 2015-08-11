@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
   
   def show
     @movie = Movie.find params[:id]
-    render partial: 'movie_ajax', object: @movie if request.xhr?
+    render json: @movie if request.xhr?
   end
   
   def new
