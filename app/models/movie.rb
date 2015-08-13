@@ -22,14 +22,27 @@ class Movie < ActiveRecord::Base
   scope :with_good_reviews, ->(threshold) { joins(:reviews).group(:movie_id).having(['AVG(reviews.potatoes) > ? ', threshold.to_i]) }
   scope :for_kids, -> { where('rating in (?)', %w(G PG)) }
   
-  def self.find_in_tmdb search_term
-    Tmdb::Movie.find search_term
+  class Movie::InvalidKeyError < StandardError ; end
+  
+  def self.find_in_tmdb string
+    Tmdb::Movie.find string
+  rescue NoMethodError => tmdb_gem_exception
+    raise tmdb_gem_exception unless Tmdb::Api.response['code'] == 401
+    raise Movie::InvalidKeyError, 'Invalid API key'
   end
   
   def name_with_rating
     "#{self.title} (#{self.rating})"
   end
 end
+
+class Tmdb::Movie
+  def rating
+    'unknown'
+  end
+end
+
+Tmdb::Api.key(ENV['TMDB_API_KEY'])
 
 # class Movie < ActiveRecord::Base
 #   def self.all_ratings ; %w[G PG PG-13 R NC-17] ; end #  shortcut: array of strings
