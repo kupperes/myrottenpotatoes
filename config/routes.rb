@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   end
   root to: redirect('/movies')
   
+  post '/movies/search_tmdb'
+  
   get 'auth/:provider/callback' => 'sessions#create'
   post 'logout' => 'sessions#destroy'
   get 'auth/failure' => 'sessions#failure'
