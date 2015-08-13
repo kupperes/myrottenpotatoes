@@ -24,6 +24,10 @@ class Movie < ActiveRecord::Base
   
   def self.find_in_tmdb search_term
   end
+  
+  def name_with_rating
+    "#{self.title} (#{self.rating})"
+  end
 end
 
 # class Movie < ActiveRecord::Base

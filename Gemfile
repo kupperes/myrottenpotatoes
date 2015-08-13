@@ -58,6 +58,7 @@ group :test do
   gem 'launchy'
   gem 'rspec-rails'
   gem 'autotest-rails'
+  gem 'factory_girl_rails'
 end
 
 gem 'themoviedb'
