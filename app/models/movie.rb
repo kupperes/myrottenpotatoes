@@ -23,6 +23,7 @@ class Movie < ActiveRecord::Base
   scope :for_kids, -> { where('rating in (?)', %w(G PG)) }
   
   def self.find_in_tmdb search_term
+    Tmdb::Movie.find search_term
   end
   
   def name_with_rating
