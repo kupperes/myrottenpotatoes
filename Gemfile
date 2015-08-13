@@ -56,9 +56,11 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'launchy'
+  gem 'rspec'
+  gem 'rspec-its'
   gem 'rspec-rails'
-  gem 'autotest-rails'
   gem 'factory_girl_rails'
+  gem 'autotest-rails'
 end
 
 gem 'themoviedb'

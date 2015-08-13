@@ -7,6 +7,11 @@ describe Movie do
   end
 end
 
+describe Movie do
+  subject { build :movie, title: 'Milk', rating: 'R' }
+  its(:name_with_rating) { eq 'Milk (R)' }
+end
+
 # describe Movie do
 #   fixtures :movies
 #   it 'should include rating and year in full name' do
